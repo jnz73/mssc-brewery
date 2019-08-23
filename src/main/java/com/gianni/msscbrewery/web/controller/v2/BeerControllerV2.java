@@ -2,6 +2,7 @@ package com.gianni.msscbrewery.web.controller.v2;
 
 import com.gianni.msscbrewery.services.v2.BeerServiceV2;
 import com.gianni.msscbrewery.web.model.v2.BeerDtoV2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@Slf4j
 @RequestMapping("/api/v2/beer")
 @RestController
 public class BeerControllerV2 {
@@ -28,7 +30,9 @@ public class BeerControllerV2 {
         BeerDtoV2 savedDto = beerServiceV2.saveNewBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
         //TODO add hostname to url
-        headers.add("Location", "/api/v2/beer" + savedDto.getId().toString());
+        String location = "/api/v2/beer/" + savedDto.getId().toString();
+        headers.add("Location", location);
+        headers.add("Location", "/api/v2/beer/" + savedDto.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 

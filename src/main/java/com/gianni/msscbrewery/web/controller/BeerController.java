@@ -29,7 +29,7 @@ public class BeerController {
         BeerDto savedDto = beerService.saveNewBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
         //TODO add hostname to url
-        headers.add("Location", "/api/v1/beer" + savedDto.getId().toString());
+        headers.add("Location", "/api/v1/beer/" + savedDto.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
